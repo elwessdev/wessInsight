@@ -14,7 +14,8 @@
             </div>
             
             <div class="p-6">
-                <form action="{{ path('app_upload_pdf') }}" method="post" enctype="multipart/form-data" class="space-y-6">
+                <form action="{{ path('app_upload_pdf') }}" method="post" enctype="multipart/form-data" class="space-y-6" 
+                    data-controller="file-upload" data-turbo="true">
                     <div class="flex flex-col items-center justify-center w-full">
                         <label for="cv-upload" class="flex flex-col items-center justify-center w-full h-40 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100">
                             <div class="flex flex-col items-center justify-center pt-5 pb-6">
@@ -24,14 +25,33 @@
                                 <p class="mb-2 text-sm text-gray-500"><span class="font-semibold">Click to upload</span> or drag and drop</p>
                                 <p class="text-xs text-gray-500">PDF (MAX. 5MB)</p>
                             </div>
-                            <input id="cv-upload" name="cv_file" type="file" class="hidden" accept=".pdf" required />
+                            <input id="cv-upload" name="cv_file" type="file" class="hidden" accept=".pdf" required 
+                                data-file-upload-target="input" data-action="change->file-upload#preview" />
                         </label>
+                    </div>
+                    
+                    <div class="bg-gray-50 p-4 rounded-lg hidden" data-file-upload-target="preview">
+                        <div class="flex items-center">
+                            <svg class="w-8 h-8 text-red-500 mr-3" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z" clip-rule="evenodd"></path>
+                            </svg>
+                            <div>
+                                <p class="text-sm font-medium text-gray-900" data-file-upload-target="filename"></p>
+                                <p class="text-xs text-gray-500">PDF Document</p>
+                            </div>
+                        </div>
                     </div>
                     
                     <div>
                         <button type="submit" class="w-full py-3 px-4 bg-primary-light hover:bg-primary text-white font-medium rounded-lg text-sm text-center transition-colors">
-                            Upload your CV
+                            Analyze CV
                         </button>
+                        <span id="upload-spinner" class="inline-block ml-2 hidden">
+                            <svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                            </svg>
+                        </span>
                     </div>
                 </form>
             </div>
@@ -60,21 +80,28 @@
                     <tbody class="bg-white divide-y divide-gray-200">
                         {% for cv in cv_history %}
                         <tr>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ cv.filename }}</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ cv.uploaded_at|date('M d, Y') }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ cv.fileName }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ cv.uploadDate|date('M d, Y') }}</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                 <div class="flex items-center">
-                                    <span class="mr-2">{{ cv.score }}%</span>
+                                    <span class="mr-2">
+                                        {% if cv.aiResult is not empty and cv.aiResult[0].overallScore is defined %}
+                                            {{ cv.aiResult[0].overallScore }}%
+                                        {% else %}
+                                            N/A
+                                        {% endif %}
+                                    </span>
                                     <div class="w-24 cv-progress-bar">
-                                        <div class="cv-progress-filled {{ cv.status == 'good' ? 'score-high' : (cv.status == 'medium' ? 'score-medium' : 'score-low') }}" style="width: {{ cv.score }}%"></div>
+                                        <div class="cv-progress-filled {% if cv.aiResult is not empty and cv.aiResult[0].overallScore is defined %}{{ cv.aiResult[0].overallScore >= 70 ? 'score-high' : (cv.aiResult[0].overallScore < 50 ? 'score-medium' : 'score-low') }}{% else %}score-low{% endif %}" style="width: {{ cv.aiResult[0].overallScore }}%"></div>
                                     </div>
                                 </div>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
-                                {{ cv.status == 'good' ? 'bg-green-100 text-green-800' : 
-                                   (cv.status == 'medium' ? 'bg-yellow-100 text-yellow-800' : 'bg-red-100 text-red-800') }}">
-                                    {{ cv.status|capitalize }}
+                                {{ cv.aiResult[0].overallScore >= 70 ? 'bg-green-100 text-green-800' : 
+                                (cv.aiResult[0].overallScore > 50 ? 'bg-yellow-100 text-yellow-800' : 'bg-red-100 text-red-800') }}">
+                                {{ cv.aiResult[0].overallScore >= 70 ? 'Good' : 
+                                (cv.aiResult[0].overallScore > 50 ? 'Medium' : 'Low') }}
                                 </span>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">

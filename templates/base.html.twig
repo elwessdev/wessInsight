@@ -79,7 +79,7 @@
                         {% if app.session.get('user_id') %}
                             <div class="relative">
                                 <button id="user-menu-button" class="flex items-center text-sm font-medium text-gray-700 hover:text-primary-light focus:outline-none">
-                                    <span class="mr-2">John Doe</span>
+                                    <span class="mr-2">{{app.session.get('user_name')}}</span>
                                     <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                                     </svg>
@@ -87,8 +87,8 @@
                                 
                                 <div id="user-dropdown" class="hidden absolute right-0 mt-2 w-48 py-1 bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 z-50">
                                     {# <a href="{{ path('app_dashboard') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Dashboard</a> #}
-                                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Profile</a>
-                                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Settings</a>
+                                    {# <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Profile</a>
+                                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Settings</a> #}
                                     <div class="border-t border-gray-100"></div>
                                     <a 
                                         href="{{ path('logout_route') }}" 

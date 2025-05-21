@@ -18,38 +18,6 @@ final class AuthController extends AbstractController
         $this->emi = $em;
     }
 
-    // #[Route('/home', name: 'home_page')]
-    // public function home(Request $req): Response{
-    //     if(!$req->getSession()->get('user_id')){
-    //         return $this->redirectToRoute('connexion_page');
-    //     }
-    //     $userId = $req->getSession()->get('user_id');
-    //     $user = $this->emi->getRepository(User::class)->findOneBy(['id' => $userId]);
-    //     if (!$user) {
-    //         $req->getSession()->remove('user_id');
-    //         return $this->redirectToRoute('connexion_page');
-    //     }
-
-    //     // Get user's notes
-    //     $notes = $this->noteRepository->findByUser($user);
-
-    //     return $this->render('pages/home.html.twig', [
-    //         'username' => $user->getUsername(),
-    //         'email' => $user->getEmail(),
-    //         'notes' => $notes,
-    //         'user' => $user
-    //     ]);
-    // }
-
-    public function ConfigNav(Request $req): array {
-        $userId = $req->getSession()->get('user_id');
-        $user = $userId ? $this->emi->getRepository(User::class)->findOneBy(['id' => $userId]) : null;
-        return [
-            'is_logged_in' => $user !== null,
-            'username' => $user ? $user->getUsername() : null
-        ];
-    }
-
     #[Route('/login', name: 'login_route')]
     public function login(Request $req): Response{
         if($req->getSession()->get('user_id')){
@@ -70,8 +38,8 @@ final class AuthController extends AbstractController
                 if (!$user || !password_verify($password, $user->getPassword())) {
                     $error = 'Invalid credentials. Please check your email and password.';
                 } else {
-                    $this->ConfigNav($req);
                     $req->getSession()->set('user_id', $user->getId());
+                    $req->getSession()->set('user_name', $user->getUsername());
                     
                     if ($req->request->get('remember_me')) {
                         $req->getSession()->set('session_lifetime', 'extended');
@@ -137,6 +105,7 @@ final class AuthController extends AbstractController
 
                 if ($req->headers->get('X-Requested-With') === 'XMLHttpRequest') {
                     $req->getSession()->set('user_id', $user->getId());
+                    $req->getSession()->set('user_name', $user->getUsername());
                     return new JsonResponse(["success"=>true]);
                 }
                 
@@ -158,6 +127,7 @@ final class AuthController extends AbstractController
     #[Route('/logout', name: 'logout_route')]
     public function logout(Request $req): Response{
         $req->getSession()->remove('user_id');
+        $req->getSession()->remove('user_name');
         return $this->redirectToRoute('app_home');
     }
 }

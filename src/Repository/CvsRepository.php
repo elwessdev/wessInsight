@@ -43,7 +43,7 @@ class CvsRepository extends ServiceEntityRepository
     public function findByUserId(int $userId): array
     {
         return $this->createQueryBuilder('c')
-            ->andWhere('c.user = :userId')
+            ->andWhere('c.userId = :userId')
             ->setParameter('userId', $userId)
             ->getQuery()
             ->getResult();

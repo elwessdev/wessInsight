@@ -2,51 +2,53 @@
 
 namespace App\Entity;
 
-use App\Repository\UserRepository;
+use App\Repository\CvsRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints\Date;
 
 #[ORM\Entity(repositoryClass: CvsRepository::class)]
 #[ORM\Table(name: '`cvs`')]
-class Cvs
-{
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
-    private $id;
+class Cvs {
+    
+    #[ORM\Id]
+    #[ORM\GeneratedValue(strategy: "AUTO")]
+    #[ORM\Column(type: "integer")]
+    private ?int $id = null;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $fileName;
+    #[ORM\Column]
+    private ?string $fileName = null;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="text", length=65535)
      */
-    private $cvContent;
+    #[ORM\Column(type: "text", length: 65535)]
+    private ?string $cvContent = null;
+
+    /**
+     * @ORM\Column(type="json", nullable=true)
+     */
+    #[ORM\Column(type: "json", nullable: true)]
+    private ?array $ai_result = null;
 
     /**
      * @ORM\Column(type="datetime")
      */
-    private $uploadDate;
-
-    /**
-     * @ORM\Column(type="float")
-     */
-    private $score;
-
-    /**
-     * @ORM\Column(type="string", length=50)
-     */
-    private $status;
-
+    #[ORM\Column(type: "datetime", options: ["default" => "CURRENT_TIMESTAMP"], nullable: false)]
+    private ?\DateTimeInterface $uploadDate = null;
     /**
      * @ORM\Column(type="integer")
      */
-    private $userId;
+    #[ORM\Column]
+    private ?int $userId = null;
 
     // Getters and Setters
+
+    public function __construct() {
+        $this->uploadDate = new \DateTime();
+    }
 
     public function getId(): ?int
     {
@@ -77,42 +79,6 @@ class Cvs
         return $this;
     }
 
-    public function getUploadDate(): ?\DateTimeInterface
-    {
-        return $this->uploadDate;
-    }
-
-    public function setUploadDate(\DateTimeInterface $uploadDate): self
-    {
-        $this->uploadDate = $uploadDate;
-
-        return $this;
-    }
-
-    public function getScore(): ?float
-    {
-        return $this->score;
-    }
-
-    public function setScore(float $score): self
-    {
-        $this->score = $score;
-
-        return $this;
-    }
-
-    public function getStatus(): ?string
-    {
-        return $this->status;
-    }
-
-    public function setStatus(string $status): self
-    {
-        $this->status = $status;
-
-        return $this;
-    }
-
     public function getUserId(): ?int
     {
         return $this->userId;
@@ -123,5 +89,26 @@ class Cvs
         $this->userId = $userId;
 
         return $this;
+    }
+
+    public function getAiResult(): ?array
+    {
+        return $this->ai_result;
+    }
+    public function setAiResult(array $ai_result): self
+    {
+        $this->ai_result = $ai_result;
+
+        return $this;
+    }
+
+    public function getUploadDate(): ?\DateTimeInterface
+    {
+        return $this->uploadDate;
+    }
+
+    public function __toString(): string
+    {
+        return $this->fileName;
     }
 }
