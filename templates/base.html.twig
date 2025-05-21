@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html class="h-full bg-gray-50">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{% block title %}WessInsight{% endblock %}</title>
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>W</text></svg>">
+        
+        {% block stylesheets %}
+            <!-- Tailwind CSS CDN -->
+            <script src="https://cdn.tailwindcss.com"></script>
+            
+            <!-- Configure Tailwind with your custom settings -->
+            <script>
+                tailwind.config = {
+                    theme: {
+                        extend: {
+                            colors: {
+                                primary: {
+                                    light: '#4F46E5',
+                                    DEFAULT: '#4338CA',
+                                    dark: '#3730A3',
+                                },
+                                secondary: {
+                                    light: '#10B981',
+                                    DEFAULT: '#059669',
+                                    dark: '#047857',
+                                },
+                            },
+                        },
+                    }
+                }
+            </script>
+            
+            <!-- Custom styles -->
+            <style type="text/tailwindcss">
+                .cv-progress-bar {
+                    @apply h-2 rounded-full bg-gray-200 overflow-hidden;
+                }
+                
+                .cv-progress-filled {
+                    @apply h-full rounded-full transition-all duration-300;
+                }
+                
+                .score-high {
+                    @apply bg-green-500;
+                }
+                
+                .score-medium {
+                    @apply bg-yellow-500;
+                }
+                
+                .score-low {
+                    @apply bg-red-500;
+                }
+            </style>
+            
+            {{ importmap('app') }}
+        {% endblock %}
+
+        {% block javascripts %}
+            {% block importmap %}{{ importmap('app') }}{% endblock %}
+        {% endblock %}
+    </head>
+    <body class="h-full antialiased text-gray-800">
+        <header class="bg-white shadow z-300 relative">
+            <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between h-16">
+                    <div class="flex">
+                        <div class="flex-shrink-0 flex items-center">
+                            <a href="{{ path('app_home') }}" class="text-2xl font-bold text-primary-light">WessInsight</a>
+                        </div>
+                        {# <div class="hidden md:ml-6 md:flex md:items-center md:space-x-4">
+                            <a href="{{ path('app_dashboard') }}" class="px-3 py-2 text-sm font-medium text-gray-700 hover:text-primary-light">Dashboard</a>
+                        </div> #}
+                    </div>
+                    
+                    <div class="flex items-center space-x-2">
+                        {% if app.session.get('user_id') %}
+                            <div class="relative">
+                                <button id="user-menu-button" class="flex items-center text-sm font-medium text-gray-700 hover:text-primary-light focus:outline-none">
+                                    <span class="mr-2">John Doe</span>
+                                    <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                    </svg>
+                                </button>
+                                
+                                <div id="user-dropdown" class="hidden absolute right-0 mt-2 w-48 py-1 bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 z-50">
+                                    {# <a href="{{ path('app_dashboard') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Dashboard</a> #}
+                                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Profile</a>
+                                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Settings</a>
+                                    <div class="border-t border-gray-100"></div>
+                                    <a 
+                                        href="{{ path('logout_route') }}" 
+                                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                    >Log out</a>
+                                </div>
+                            </div>
+                        {% else %}
+                            <a class="login-link inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary-light focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-light cursor-pointer hover:scale-105 transition-transform">
+                                Log in
+                            </a>
+                            <a class="signup-link inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary-light focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-light cursor-pointer hover:bg-primary hover:scale-105 transition-transform">
+                                Sign up
+                            </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </nav>
+        </header>
+        
+        <main>
+            {% block body %}{% endblock %}
+        </main>
+        
+        <footer class="bg-white py-6 mt-auto">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <p class="text-center text-gray-500 text-sm">
+                    © {% if 'now'|date('Y') == '2025' %}2025{% else %}2025-{{ 'now'|date('Y') }}{% endif %} WessInsight. All rights reserved.
+                </p>
+            </div>
+        </footer>
+        
+        {% block body_end_scripts %}
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                // User dropdown functionality
+                const userMenuButton = document.getElementById('user-menu-button');
+                const userDropdown = document.getElementById('user-dropdown');
+                
+                if (userMenuButton && userDropdown) {
+                    userMenuButton.addEventListener('click', function() {
+                        userDropdown.classList.toggle('hidden');
+                    });
+                    
+                    // Close the dropdown when clicking outside
+                    document.addEventListener('click', function(event) {
+                        if (!userMenuButton.contains(event.target) && !userDropdown.contains(event.target)) {
+                            userDropdown.classList.add('hidden');
+                        }
+                    });
+                }
+            });
+        </script>
+        {% endblock %}
+    </body>
+</html>

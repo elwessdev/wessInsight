@@ -1,0 +1,24 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom styles */
+.cv-progress-bar {
+    @apply h-2 rounded-full bg-gray-200 overflow-hidden;
+}
+
+.cv-progress-filled {
+    @apply h-full rounded-full transition-all duration-300;
+}
+
+.score-high {
+    @apply bg-green-500;
+}
+
+.score-medium {
+    @apply bg-yellow-500;
+}
+
+.score-low {
+    @apply bg-red-500;
+}

@@ -1,0 +1,535 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}WessInsight - CV Analysis{% endblock %}
+
+{% block body %}
+<div class="bg-white">
+    <!-- Hero section -->
+    <div class="relative isolate px-6 pt-14 lg:px-8">
+        {# <div class="absolute inset-x-0 -top-40 z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80" aria-hidden="true">
+            <div class="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-primary-light to-secondary-light opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"></div>
+        </div> #}
+        
+        <div class="mx-auto max-w-2xl py-20">
+            <div class="text-center">
+                <h1 class="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
+                    Boost Your CV <br /> 
+                    with AI-Powered Insights
+                </h1>
+                <p class="mt-6 text-lg leading-8 text-gray-600">
+                    WessInsight uses advanced AI to analyze your resume and provide personalized, actionable tips to help you stand out.
+                </p>
+                
+                {# <div class="mt-12 bg-white p-6 rounded-lg shadow-md relative">
+                    <div class="absolute -top-3 right-3">
+                        <span class="inline-flex items-center rounded-full bg-blue-100 px-3 py-0.5 text-sm font-medium text-blue-800">
+                            <svg class="mr-1.5 h-2.5 w-2.5 text-blue-600" fill="currentColor" viewBox="0 0 8 8">
+                                <circle cx="4" cy="4" r="3" />
+                            </svg>
+                            Powered by AI
+                        </span>
+                    </div>
+                    <form action="{{ path('app_upload') }}" method="post" enctype="multipart/form-data" class="space-y-6">
+                        <div class="flex flex-col items-center justify-center w-full">
+                            <label for="cv-upload" class="flex flex-col items-center justify-center w-full h-52 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100">
+                                <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                                    <svg class="w-10 h-10 mb-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+                                    </svg>
+                                    <p class="mb-2 text-sm text-gray-500"><span class="font-semibold">Click to upload</span> or drag and drop</p>
+                                    <p class="text-xs text-gray-500">PDF (MAX. 5MB)</p>
+                                </div>
+                                <input id="cv-upload" name="cv_file" type="file" class="hidden" accept=".pdf" required />
+                            </label>
+                        </div>
+                        
+                        <div>
+                            <button type="submit" class="w-full py-3 px-4 bg-primary-light hover:bg-primary text-white font-medium rounded-lg text-sm text-center transition-colors">
+                                Upload your CV and let our AI do the rest
+                            </button>
+                        </div>
+                    </form>
+                </div> #}
+
+                <div class="mt-12">
+                    <a id="get-started-btn" class="inline-block rounded-lg bg-primary-light px-6 py-3 text-lg font-semibold text-white shadow-lg hover:bg-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-light transition-transform transform hover:scale-105 cursor-pointer">
+                        Get Started
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Feature section -->
+        <div class="mx-auto max-w-7xl px-6 py-12 sm:py-16 lg:px-8">
+            <div class="mx-auto max-w-2xl lg:text-center">
+                <h2 class="text-base font-semibold leading-7 text-primary-light">Professional CV Analysis</h2>
+                <p class="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Everything you need to improve your CV</p>
+                <p class="mt-6 text-lg leading-8 text-gray-600">Our AI-powered analysis gives you detailed feedback on every aspect of your CV to help you stand out from the crowd.</p>
+            </div>
+            
+            <div class="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-4xl">
+                <dl class="grid max-w-xl grid-cols-1 gap-x-8 gap-y-10 lg:max-w-none lg:grid-cols-2 lg:gap-y-16">
+                    <div class="relative pl-16">
+                        <dt class="text-base font-semibold leading-7 text-gray-900">
+                            <div class="absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-lg bg-primary-light">
+                                <svg class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 16.5V9.75m0 0l3 3m-3-3l-3 3M6.75 19.5a4.5 4.5 0 01-1.41-8.775 5.25 5.25 0 1110.233-2.33 3 3 0 013.758 3.848A3.752 3.752 0 0118 19.5H6.75z" />
+                                </svg>
+                            </div>
+                            Section by Section Scoring
+                        </dt>
+                        <dd class="mt-2 text-base leading-7 text-gray-600">Get detailed scores for each section of your CV, including Education, Experience, Skills, and Languages.</dd>
+                    </div>
+                    
+                    <div class="relative pl-16">
+                        <dt class="text-base font-semibold leading-7 text-gray-900">
+                            <div class="absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-lg bg-primary-light">
+                                <svg class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+                                </svg>
+                            </div>
+                            Actionable Improvements
+                        </dt>
+                        <dd class="mt-2 text-base leading-7 text-gray-600">Receive specific, actionable recommendations to improve each section of your CV.</dd>
+                    </div>
+                    
+                    <div class="relative pl-16">
+                        <dt class="text-base font-semibold leading-7 text-gray-900">
+                            <div class="absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-lg bg-primary-light">
+                                <svg class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                                </svg>
+                            </div>
+                            Industry Best Practices
+                        </dt>
+                        <dd class="mt-2 text-base leading-7 text-gray-600">Learn how your CV stacks up against industry best practices and what recruiters look for.</dd>
+                    </div>
+                    
+                    <div class="relative pl-16">
+                        <dt class="text-base font-semibold leading-7 text-gray-900">
+                            <div class="absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-lg bg-primary-light">
+                                <svg class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 001.423 1.423l1.183.394-1.183.394a2.25 2.25 0 00-1.423 1.423z" />
+                                </svg>
+                            </div>
+                            AI-Powered Analysis
+                        </dt>
+                        <dd class="mt-2 text-base leading-7 text-gray-600">Our advanced AI algorithms provide deep insights into your CV's strengths and areas for improvement.</dd>
+                    </div>
+                </dl>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Signup Modal -->
+<div 
+    id="signup-modal" 
+    class="fixed inset-0 z-50 overflow-y-auto p-4 sm:p-6 md:p-20 hidden"
+>
+    <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
+    
+    <div class="modal-content transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6 opacity-0 translate-y-4 mx-auto">
+        <div class="absolute right-0 top-0 pr-4 pt-4">
+            <button type="button" id="close-modal-btn" class="rounded-md bg-white text-gray-400 hover:text-gray-500">
+                <span class="sr-only">Close</span>
+                <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+        </div>
+
+        <div class="sm:flex sm:items-start">
+            <div class="mt-3 text-center sm:mt-0 sm:text-left w-full">
+                <div class="flex items-center justify-center mb-5">
+                    <h3 class="text-xl font-semibold leading-6 text-gray-900">Create your account</h3>
+                </div>
+                
+                <!-- Error message container -->
+                <div id="signup-error" class="mb-4 hidden">
+                    <div class="bg-red-50 border-l-4 border-red-400 p-4">
+                        <div class="flex">
+                            <div class="flex-shrink-0">
+                                <svg class="h-5 w-5 text-red-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                    <path fill-rule="evenodd" d="M8.485 2.495c.673-1.167 2.357-1.167 3.03 0l6.28 10.875c.673 1.167-.17 2.625-1.516 2.625H3.72c-1.347 0-2.189-1.458-1.515-2.625L8.485 2.495zM10 5a.75.75 0 01.75.75v4.5a.75.75 0 01-1.5 0v-4.5A.75.75 0 0110 5zm0 9a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd" />
+                                </svg>
+                            </div>
+                            <div class="ml-3">
+                                <p class="text-sm text-red-700" id="error-message"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Success message container -->
+                <div id="signup-success" class="mb-4 hidden">
+                    <div class="bg-green-50 border-l-4 border-green-400 p-4">
+                        <div class="flex">
+                            <div class="flex-shrink-0">
+                                <svg class="h-5 w-5 text-green-400" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                </svg>
+                            </div>
+                            <div class="ml-3">
+                                <p class="text-sm text-green-700" id="success-message">Account created successfully! Redirecting...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <form id="signup-form" class="space-y-4">
+                    <div>
+                        <label for="username" class="block text-sm font-medium leading-6 text-gray-900">Username</label>
+                        <div class="mt-2">
+                            <input type="text" id="username" name="username" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-light sm:text-sm sm:leading-6 px-3">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Email address</label>
+                        <div class="mt-2">
+                            <input type="email" id="email" name="email" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-light sm:text-sm sm:leading-6 px-3">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label for="password" class="block text-sm font-medium leading-6 text-gray-900">Password</label>
+                        <div class="mt-2">
+                            <input type="password" id="password" name="password" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-light sm:text-sm sm:leading-6 px-3">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label for="confirm-password" class="block text-sm font-medium leading-6 text-gray-900">Confirm password</label>
+                        <div class="mt-2">
+                            <input type="password" id="confirm-password" name="confirm_password" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-light sm:text-sm sm:leading-6 px-3">
+                        </div>
+                    </div>
+
+                    <div class="mt-5 sm:mt-6">
+                        <button type="submit" id="signup-button" class="inline-flex w-full justify-center rounded-md bg-primary-light px-3 py-2 text-sm font-medium text-white shadow-sm hover:bg-primary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-light">
+                            <span>Sign Up</span>
+                            <span id="signup-spinner" class="inline-block ml-2 hidden">
+                                <svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                </svg>
+                            </span>
+                        </button>
+                    </div>
+
+                    <div class="text-sm text-center text-gray-500">
+                        Already have an account? <a href="#" class="login-link font-medium text-primary-light hover:underline">Log in</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Login Modal -->
+<div 
+    id="login-modal" 
+    class="fixed inset-0 z-50 overflow-y-auto p-4 sm:p-6 md:p-20 hidden"
+>
+    <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
+    
+    <div class="modal-content transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6 opacity-0 translate-y-4 mx-auto">
+        <div class="absolute right-0 top-0 pr-4 pt-4">
+            <button type="button" id="close-login-modal-btn" class="rounded-md bg-white text-gray-400 hover:text-gray-500">
+                <span class="sr-only">Close</span>
+                <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+        </div>
+
+        <div class="sm:flex sm:items-start">
+            <div class="mt-3 text-center sm:mt-0 sm:text-left w-full">
+                <div class="flex items-center justify-center mb-5">
+                    <h3 class="text-xl font-semibold leading-6 text-gray-900">Login to your account</h3>
+                </div>
+                
+                <!-- Error message container -->
+                <div id="login-error" class="mb-4 hidden">
+                    <div class="bg-red-50 border-l-4 border-red-400 p-4">
+                        <div class="flex">
+                            <div class="flex-shrink-0">
+                                <svg class="h-5 w-5 text-red-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                    <path fill-rule="evenodd" d="M8.485 2.495c.673-1.167 2.357-1.167 3.03 0l6.28 10.875c.673 1.167-.17 2.625-1.516 2.625H3.72c-1.347 0-2.189-1.458-1.515-2.625L8.485 2.495zM10 5a.75.75 0 01.75.75v4.5a.75.75 0 01-1.5 0v-4.5A.75.75 0 0110 5zm0 9a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd" />
+                                </svg>
+                            </div>
+                            <div class="ml-3">
+                                <p class="text-sm text-red-700" id="login-error-message"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Success message container -->
+                <div id="login-success" class="mb-4 hidden">
+                    <div class="bg-green-50 border-l-4 border-green-400 p-4">
+                        <div class="flex">
+                            <div class="flex-shrink-0">
+                                <svg class="h-5 w-5 text-green-400" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                </svg>
+                            </div>
+                            <div class="ml-3">
+                                <p class="text-sm text-green-700" id="login-success-message">Login successful! Redirecting...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <form id="login-form" class="space-y-4">
+                    <div>
+                        <label for="login-email" class="block text-sm font-medium leading-6 text-gray-900">Email address</label>
+                        <div class="mt-2">
+                            <input type="email" id="login-email" name="email" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-light sm:text-sm sm:leading-6 px-3">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label for="login-password" class="block text-sm font-medium leading-6 text-gray-900">Password</label>
+                        <div class="mt-2">
+                            <input type="password" id="login-password" name="password" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary-light sm:text-sm sm:leading-6 px-3">
+                        </div>
+                    </div>
+
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center">
+                            <input id="remember-me" name="remember_me" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-primary-light focus:ring-primary-light">
+                            <label for="remember-me" class="ml-2 block text-sm text-gray-900">Remember me</label>
+                        </div>
+
+                        {# <div class="text-sm">
+                            <a href="#" class="font-medium text-primary-light hover:underline">Forgot password?</a>
+                        </div> #}
+                    </div>
+
+                    <div class="mt-5 sm:mt-6">
+                        <button type="submit" id="login-button" class="inline-flex w-full justify-center rounded-md bg-primary-light px-3 py-2 text-sm font-medium text-white shadow-sm hover:bg-primary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-light">
+                            <span>Log in</span>
+                            <span id="login-spinner" class="inline-block ml-2 hidden">
+                                <svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                </svg>
+                            </span>
+                        </button>
+                    </div>
+
+                    <div class="text-sm text-center text-gray-500">
+                        Don't have an account? <a href="#" class="signup-link font-medium text-primary-light hover:underline">Sign up</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const modal = document.getElementById('signup-modal');
+        const modalContent = modal.querySelector('.modal-content');
+        const getStartedBtn = document.getElementById('get-started-btn');
+        const closeModalBtn = document.getElementById('close-modal-btn');
+        const signupForm = document.getElementById('signup-form');
+        const errorContainer = document.getElementById('signup-error');
+        const errorMessage = document.getElementById('error-message');
+        const successContainer = document.getElementById('signup-success');
+        const successMessage = document.getElementById('success-message');
+        const signupButton = document.getElementById('signup-button');
+        const signupSpinner = document.getElementById('signup-spinner');
+        const loginLink = document.querySelector('.login-link');
+
+        const loginModal = document.getElementById('login-modal');
+        const loginModalContent = loginModal.querySelector('.modal-content');
+        const closeLoginModalBtn = document.getElementById('close-login-modal-btn');
+        const loginForm = document.getElementById('login-form');
+        const loginErrorContainer = document.getElementById('login-error');
+        const loginErrorMessage = document.getElementById('login-error-message');
+        const loginSuccessContainer = document.getElementById('login-success');
+        const loginSuccessMessage = document.getElementById('login-success-message');
+        const loginButton = document.getElementById('login-button');
+        const loginSpinner = document.getElementById('login-spinner');
+        const signupLink = document.querySelector('.signup-link');
+
+        function openModal() {
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modalContent.classList.remove('opacity-0');
+                modalContent.classList.remove('translate-y-4');
+            }, 50);
+            document.body.classList.add('overflow-hidden');
+        }
+
+        function closeModal() {
+            modalContent.classList.add('opacity-0', 'translate-y-4');
+            
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                document.body.classList.remove('overflow-hidden');
+                signupForm.reset();
+                errorContainer.classList.add('hidden');
+                successContainer.classList.add('hidden');
+            }, 300);
+        }
+
+        function openLoginModal() {
+            loginModal.classList.remove('hidden');
+            setTimeout(() => {
+                loginModalContent.classList.remove('opacity-0');
+                loginModalContent.classList.remove('translate-y-4');
+            }, 50);
+            document.body.classList.add('overflow-hidden');
+        }
+
+        function closeLoginModal() {
+            loginModalContent.classList.add('opacity-0', 'translate-y-4');
+            
+            setTimeout(() => {
+                loginModal.classList.add('hidden');
+                document.body.classList.remove('overflow-hidden');
+                loginForm.reset();
+                loginErrorContainer.classList.add('hidden');
+                loginSuccessContainer.classList.add('hidden');
+            }, 300);
+        }
+
+        getStartedBtn.addEventListener('click', openModal);
+        
+        closeModalBtn.addEventListener('click', closeModal);
+        
+        modal.addEventListener('click', function(event) {
+            if (event.target === modal) {
+                closeModal();
+            }
+        });
+
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape' && !modal.classList.contains('hidden')) {
+                closeModal();
+            }
+        });
+
+        loginLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            closeModal();
+            openLoginModal();
+        });
+
+        signupLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            closeLoginModal();
+            openModal();
+        });
+
+        signupForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            errorContainer.classList.add('hidden');
+            successContainer.classList.add('hidden');
+            
+            signupButton.disabled = true;
+            signupSpinner.classList.remove('hidden');
+            
+            const formData = new FormData(signupForm);
+            
+            fetch('{{ path('signup_route') }}', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            })
+            .then(response => response.json())
+            .then(res => {
+                console.log(res)
+                if (res.success) {
+                    successContainer.classList.remove('hidden');
+                    setTimeout(() => {
+                        window.location.href = '{{ path('app_dashboard') }}';
+                    }, 1500);
+                } else {
+                    const errorValue = res.error || 'Registration failed. Please try again.';
+                    console.log(errorValue)
+                    errorMessage.textContent = errorValue;
+                    errorContainer.classList.remove('hidden');
+                    signupButton.disabled = false;
+                    signupSpinner.classList.add('hidden');
+                }
+            })
+            .catch(error => {
+                errorMessage.textContent = 'Network error occurred. Please try again.';
+                errorContainer.classList.remove('hidden');
+                signupButton.disabled = false;
+                signupSpinner.classList.add('hidden');
+                console.error('Error:', error);
+            });
+        });
+
+        closeLoginModalBtn.addEventListener('click', closeLoginModal);
+        
+        loginModal.addEventListener('click', function(event) {
+            if (event.target === loginModal) {
+                closeLoginModal();
+            }
+        });
+
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape' && !loginModal.classList.contains('hidden')) {
+                closeLoginModal();
+            }
+        });
+
+        loginForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            loginErrorContainer.classList.add('hidden');
+            loginSuccessContainer.classList.add('hidden');
+            
+            loginButton.disabled = true;
+            loginSpinner.classList.remove('hidden');
+            
+            const formData = new FormData(loginForm);
+            
+            fetch('{{ path('login_route') }}', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            })
+            .then(response => response.json())
+            .then(res => {
+                console.log(res)
+                if (res.success) {
+                    loginSuccessContainer.classList.remove('hidden');
+                    setTimeout(() => {
+                        window.location.href = '{{ path('app_dashboard') }}';
+                    }, 1500);
+                } else {
+                    const errorValue = res.error || 'Login failed. Please try again.';
+                    console.log(errorValue)
+                    loginErrorMessage.textContent = errorValue;
+                    loginErrorContainer.classList.remove('hidden');
+                    loginButton.disabled = false;
+                    loginSpinner.classList.add('hidden');
+                }
+            })
+            .catch(error => {
+                loginErrorMessage.textContent = 'Network error occurred. Please try again.';
+                loginErrorContainer.classList.remove('hidden');
+                loginButton.disabled = false;
+                loginSpinner.classList.add('hidden');
+                console.error('Error:', error);
+            });
+        });
+    });
+</script>
+{% endblock %}
