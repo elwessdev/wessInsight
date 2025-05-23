@@ -49,4 +49,22 @@ class AnalysisController extends AbstractController{
             'fileName' => $cv->getFileName(),
         ]);
     }
+
+    #[Route('/deleteCv/{id}', name: 'app_delete_cv', methods: ['POST'])]
+    public function delete(string $id, Request $req): Response {
+        if (!$req->getSession()->get('user_id')) {
+            return $this->redirectToRoute('app_home');
+        }
+
+        $cv = $this->emi->getRepository(Cvs::class)->findOneBy(['id' => $id]);
+
+        if (!$cv || $cv->getUserId() != $req->getSession()->get('user_id')) {
+            return $this->redirectToRoute('app_dashboard');
+        }
+
+        $this->emi->remove($cv);
+        $this->emi->flush();
+
+        return $this->redirectToRoute('app_dashboard');
+    }
 }

@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}WessInsight - Dashboard{% endblock %}
+{% block title %}wessInsight - Dashboard{% endblock %}
 
 {% block body %}
 <div class="bg-gray-50 min-h-screen">
@@ -92,20 +92,23 @@
                                         {% endif %}
                                     </span>
                                     <div class="w-24 cv-progress-bar">
-                                        <div class="cv-progress-filled {% if cv.aiResult is not empty and cv.aiResult[0].overallScore is defined %}{{ cv.aiResult[0].overallScore >= 70 ? 'score-high' : (cv.aiResult[0].overallScore < 50 ? 'score-medium' : 'score-low') }}{% else %}score-low{% endif %}" style="width: {{ cv.aiResult[0].overallScore }}%"></div>
+                                        <div class="cv-progress-filled {% if cv.aiResult is not empty and cv.aiResult[0].overallScore|default(null) is not null %}{{ cv.aiResult[0].overallScore >= 70 ? 'score-high' : (cv.aiResult[0].overallScore < 50 ? 'score-medium' : 'score-low') }}{% else %}score-low{% endif %}" style="width: {{ cv.aiResult[0].overallScore|default(0) }}%"></div>
                                     </div>
                                 </div>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
-                                {{ cv.aiResult[0].overallScore >= 70 ? 'bg-green-100 text-green-800' : 
-                                (cv.aiResult[0].overallScore > 50 ? 'bg-yellow-100 text-yellow-800' : 'bg-red-100 text-red-800') }}">
-                                {{ cv.aiResult[0].overallScore >= 70 ? 'Good' : 
-                                (cv.aiResult[0].overallScore > 50 ? 'Medium' : 'Low') }}
+                                {{ (cv.aiResult[0].overallScore|default(0)) >= 70 ? 'bg-green-100 text-green-800' : 
+                                ((cv.aiResult[0].overallScore|default(0)) > 50 ? 'bg-yellow-100 text-yellow-800' : 'bg-red-100 text-red-800') }}">
+                                {{ (cv.aiResult[0].overallScore|default(0)) >= 70 ? 'Good' : 
+                                ((cv.aiResult[0].overallScore|default(0)) > 50 ? 'Medium' : 'Low') }}
                                 </span>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                 <a href="{{ path('app_analysis', {'id': cv.id}) }}" class="text-primary-light hover:text-primary">View Analysis</a>
+                                <form action="{{ path('app_delete_cv', {'id': cv.id}) }}" method="post" class="inline-block">
+                                    <button type="submit" class="text-red-600 hover:text-red-800 ml-4">Delete</button>
+                                </form>
                             </td>
                         </tr>
                         {% endfor %}

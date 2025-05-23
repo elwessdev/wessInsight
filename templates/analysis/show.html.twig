@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}WessInsight - CV Analysis Results{% endblock %}
+{% block title %}wessInsight - CV Analysis Results{% endblock %}
 
 {% block body %}
 <div class="bg-gray-50 min-h-screen">
@@ -21,8 +21,8 @@
                 <div class="mt-4 md:mt-0">
                     <div class="inline-flex items-center px-4 py-2 bg-gray-100 rounded-full">
                         <span class="text-sm font-medium">Overall Score:</span>
-                        <span class="ml-2 text-lg font-bold {% if cvData.overallScore >= 80 %}text-green-600{% elseif cvData.overallScore >= 60 %}text-yellow-600{% else %}text-red-600{% endif %}">
-                            {{ cvData.overallScore }}%
+                        <span class="ml-2 text-lg font-bold {% if (cvData.overallScore ?? 0) >= 80 %}text-green-600{% elseif (cvData.overallScore ?? 0) >= 60 %}text-yellow-600{% else %}text-red-600{% endif %}">
+                            {{ cvData.overallScore ?? 0 }}%
                         </span>
                     </div>
                 </div>
@@ -425,12 +425,12 @@
                     <a href="{{ path('app_home') }}" class="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-primary-light hover:bg-primary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-light">
                         Upload Another CV
                     </a>
-                    <button type="button" class="inline-flex items-center justify-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-light">
+                    {# <button type="button" class="inline-flex items-center justify-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-light">
                         Download Report
                     </button>
                     <button type="button" class="inline-flex items-center justify-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-light">
                         Share Report
-                    </button>
+                    </button> #}
                 </div>
             </div>
         </div>

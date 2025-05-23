@@ -58,6 +58,8 @@ class HomeController extends AbstractController{
                     'error' => 'Failed to extract text from PDF: ' . $e->getMessage()
                 ]);
             }
+            $extractedText = mb_convert_encoding($extractedText, 'UTF-8', 'UTF-8');
+            $extractedText = preg_replace('/[\x00-\x1F\x80-\xFF]/', '', $extractedText);
             
             $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
             $safeFilename = $slugger->slug($originalFilename);
@@ -78,7 +80,7 @@ class HomeController extends AbstractController{
             $client = HttpClient::create();
             $response = $client->request('POST', "https://openrouter.ai/api/v1/chat/completions", [
                 'headers' => [
-                    'Authorization' => 'Bearer ' . $_ENV['APP_OPEN_ROUTER_KEY'],
+                    'Authorization' => 'Bearer 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',
                     'Content-Type' => 'application/json',
                     'HTTP-Referer' => 'wessinsight',
                     'X-Title' => 'WessInsight CV Analysis',
@@ -217,7 +219,7 @@ class HomeController extends AbstractController{
                 'stored_filename' => $newFilename,
                 'user_id' => $request->getSession()->get('user_id'),
                 'analysis' => $analysis,
-                // "ai_result" => $aiResult,
+                "ai_result" => $analysis,
             ]);
             
         } catch (\Exception $e) {
